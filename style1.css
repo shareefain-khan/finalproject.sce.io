@@ -1,0 +1,195 @@
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    max-width: 1300px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+nav {
+    flex: 1;
+    text-align: right;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+}
+
+nav ul li a:hover {
+    color: #ff523b;
+}
+
+.menu-icon {
+    display: none;
+    cursor: pointer;
+}
+
+.single-product {
+    padding: 50px 0;
+}
+
+.small-container {
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.col-2 {
+    flex-basis: 50%;
+    min-width: 300px;
+}
+
+.col-2 img {
+    max-width: 100%;
+    padding: 50px 0;
+}
+
+.small-img-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.small-img-col {
+    flex-basis: 24%;
+}
+
+.small-img-col img {
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Cart styles */
+.cart {
+    display: none;
+    position: fixed;
+    top: 20%;
+    right: 20px;
+    width: 300px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.cart h2 {
+    margin: 0 0 20px;
+}
+
+.cart ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cart ul li {
+    margin-bottom: 10px;
+}
+
+.cart button {
+    background: #ff523b;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.cart button:hover {
+    background: #ff523b;
+    opacity: 0.8;
+}
+
+.product-img {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+.footer {
+    background: #000;
+    color: #fff;
+    padding: 60px 0 20px;
+}
+
+.footer-col-1,
+.footer-col-2,
+.footer-col-3,
+.footer-col-4 {
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.footer-col-1 {
+    flex: 1;
+}
+
+.footer-col-2 {
+    flex: 2;
+    text-align: center;
+}
+
+.footer-col-3,
+.footer-col-4 {
+    flex: 1;
+}
+
+.footer h3 {
+    margin-bottom: 20px;
+}
+
+.footer p {
+    color: #8a8a8a;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer ul li {
+    margin-bottom: 10px;
+}
+
+.footer ul li a {
+    color: #8a8a8a;
+    text-decoration: none;
+}
+
+.footer ul li a:hover {
+    color: #fff;
+}
+
+.footer .app-logo img {
+    width: 140px;
+}
+
+

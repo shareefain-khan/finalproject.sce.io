@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            max-width: 1300px;
+            margin: auto;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+       
+        .menu-icon {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+        }
+        .logo img {
+            width: 125px;
+        }
+        .btn {
+            background-color: #ff523b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #e74c3c;
+        }
+        .small-container {
+            max-width: 1080px;
+            margin: auto;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .col-2 {
+            flex-basis: 50%;
+            min-width: 300px;
+        }
+        .col-2 img {
+            max-width: 100%;
+            padding: 50px 0;
+        }
+        .small-img-row {
+            display: flex;
+            justify-content: space-between;
+        }
+        .small-img-col {
+            flex-basis: 24%;
+        }
+        .small-img-col img {
+            cursor: pointer;
+            width: 100%;
+        }
+        .cart {
+            display: none;
+            position: fixed;
+            top: 20%;
+            right: 20px;
+            width: 300px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        .cart h2 {
+            margin: 0 0 20px;
+        }
+        .cart ul {
+            list-style: none;
+            padding: 0;
+        }
+        .cart ul li {
+            margin-bottom: 10px;
+        }
+        .cart button {
+            background: #ff523b;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .cart button:hover {
+            background: #ff523b;
+            opacity: 0.8;
+        }
+        .product-img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+        }
+        .footer {
+            background: #000;
+            color: #fff;
+            padding: 60px 0 20px;
+        }
+        .footer-col-1,
+        .footer-col-2,
+        .footer-col-3,
+        .footer-col-4 {
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        .footer-col-1 {
+            flex: 1;
+        }
+        .footer-col-2 {
+            flex: 2;
+            text-align: center;
+        }
+        .footer-col-3,
+        .footer-col-4 {
+            flex: 1;
+        }
+        .footer h3 {
+            margin-bottom: 20px;
+        }
+        .footer p {
+            color: #8a8a8a;
+        }
+        .footer ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+        .footer ul li a {
+            color: #8a8a8a;
+            text-decoration: none;
+        }
+        .footer ul li a:hover {
+            color: #fff;
+        }
+        .footer .app-logo img {
+            width: 140px;
+        }
+        .footer hr {
+            border: none;
+            background: #8a8a8a;
+            height: 1px;
+            margin: 20px 0;
+        }
+        .copyright {
+            text-align: center;
+        }
+        .menu-icon {
+            width: 28px;
+            margin-left: 20px;
+            display: none;
+        }
+        @media only screen and (max-width: 600px) {
+            .row {
+                text-align: center;
+            }
+            .col-2,
+            .col-3,
+            .col-4 {
+                flex-basis: 100%;
+            }
+            .single-product .row {
+                text-align: left;
+            }
+            .single-product .col-2 {
+                padding: 20px 0;
+            }
+            .single-product h1 {
+                font-size: 26px;
+                line-height: 32px;
+            }
+            .cart-info p {
+                display: none;
+            }
+            .menu-icon {
+                display: block;
+                cursor: pointer;
+            }
+            nav ul li a {
+                color: #fff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" alt="RedStore Logo" width="125px">
+            </div>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./product.html">Product</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="./account.html">Account</a></li>
+                </ul>
+            </nav>
+            <img src="images/cart.png" width="30px" height="30px" onclick="toggleCart()" alt="Cart Icon">
+            <div class="menu-icon" id="menu-icon">☰</div>
+        </div>
+    </div>
+
+    <!-- Cart Section -->
+    <div id="cart" class="cart" aria-live="polite">
+        <h2>Cart</h2>
+        <ul id="cart-items"></ul>
+        <div id="total-amount" style="font-weight: bold; margin-bottom: 10px;"></div>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+    <!-- Single product details -->
+    <div class="small-container single-product">
+        <div class="row">
+            <div class="col-2">
+                <img src="images/product-2.jpg" class="main-img" id="ProductImg" alt="Main Product Image">
+                <div class="small-img-row">
+                    <div class="small-img-col">
+                        <img src="images/product-2.jpg" class="SmallImg" alt="Product Image 1">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="images/product-shoes-2.jpg" class="SmallImg" alt="Product Image 2">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="images/product-shoes-3.jpg" class="SmallImg" alt="Product Image 3">
+                    </div>
+                    <div class="small-img-col">
+                        <img src="images/product-shoes-4.jpg" class="SmallImg" alt="Product Image 4">
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <p>Home / T-Shirt</p>
+                <h1>Shoes by HRK</h1>
+                <h4>$70.00</h4>
+                <select>
+                    <option>Select Size</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>XL</option>
+                </select>
+                <input type="number" value="1" aria-label="Quantity" id="product-quantity-0">
+                <button class="btn" onclick="addToCart(0)">Add To Cart</button>
+                <h3>Product Details <i class="fa fa-indent"></i> </h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex aliquid, facere id dolorem officiis explicabo rerum. Obcaecati eveniet voluptate ab vero eaque reprehenderit officia, voluptatibus beatae sed, alias, quae esse!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Title -->
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>All Products</h2>
+            <select>
+                <option>Default Shorting</option>
+                <option>Short by price</option>
+                <option>Short by popularity</option>
+                <option>Short by rating</option>
+                <option>Short by sale</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Products -->
+    <div class="small-container">
+        <div class="row">
+            <div class="col-4">
+                <a href="product-details.html"><img src="images/product-1.jpg" class="product-img" alt="Red Printed T-Shirt"></a>
+                <h4>Red Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>$75.00</p>
+                <button class="btn" onclick="addToCart(1)">Add To Cart</button>
+            </div>
+            <div class="col-4">
+                <img src="images/product-2.jpg" class="product-img" alt="Shoes">
+                <h4>Shoes</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>$70.00</p>
+                <button class="btn" onclick="addToCart(2)">Add To Cart</button>
+            </div>
+            <div class="col-4">
+                <a href="./product-trouser.html"><img src="images/product-3.jpg" class="product-img" alt="Trouser for Men"></a>
+                <h4>Trouser for Men</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                </div>
+                <p>$25.00</p>
+                <button class="btn" onclick="addToCart(3)">Add To Cart</button>
+            </div>
+            <div class="col-4">
+                <a href="./blueT-shirt.html"><img src="images/product-4.jpg" class="product-img" alt="Blue Printed T-Shirt"></a>
+                <h4>Blue Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                </div>
+                <p>$75.00</p>
+                <button class="btn" onclick="addToCart(4)">Add To Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and iOS mobile phone.</p>
+                    <div class="app-logo">
+                        <img src="images/play-store.png" alt="Play Store">
+                        <img src="images/app-store.png" alt="App Store">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="images/logo-white.png" alt="RedStore Logo">
+                    <p>Our Purpose Is To Sustainably Make the Pleasure and Benefits of Sports Accessible to the Many.</p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Useful Links</h3>
+                    <ul>
+                        <li>Coupons</li>
+                        <li>Blog Post</li>
+                        <li>Return Policy</li>
+                        <li>Join Affiliate</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                        <li>Instagram</li>
+                        <li>YouTube</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">All Rights Reserved 2024</p>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+MenuItems.style.maxHeight = "0px";
+
+document.getElementById("menu-icon").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent any default action, just in case
+    if (MenuItems.style.maxHeight === "0px") {
+        MenuItems.style.maxHeight = "200px";
+    } else {
+        MenuItems.style.maxHeight = "0px";
+    }
+});
+
+
+
+        let cart = [];
+
+        const products = [
+            { id: 0, name: "Shoes by HRK", price: 70.00, img: "images/product-2.jpg" },
+            { id: 1, name: "Red Printed T-Shirt", price: 75.00, img: "images/product-1.jpg" },
+            { id: 2, name: "Shoes", price: 70.00, img: "images/product-2.jpg" },
+            { id: 3, name: "Trouser for Men", price: 25.00, img: "images/product-3.jpg" },
+            { id: 4, name: "Blue Printed T-Shirt", price: 75.00, img: "images/product-4.jpg" }
+        ];
+
+        window.onload = function() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+        };
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const quantityInput = document.getElementById(`product-quantity-${productId}`);
+            const quantity = parseInt(quantityInput ? quantityInput.value : 1, 10);
+
+            if (product) {
+                const cartItem = { ...product, id: Date.now(), quantity }; // Unique ID for each cart item
+                cart.push(cartItem);
+                saveCart();
+                updateCart();
+            }
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+
+            cart.forEach(item => {
+                const li = document.createElement('li');
+
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+
+                const quantityInput = document.createElement('input');
+                quantityInput.type = 'number';
+                quantityInput.value = item.quantity;
+                quantityInput.min = 1;
+                quantityInput.style.marginLeft = '10px';
+                quantityInput.onchange = () => updateQuantity(item.id, quantityInput.value);
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'X';
+                removeButton.style.marginLeft = '10px';
+                removeButton.onclick = () => removeFromCart(item.id);
+
+                li.appendChild(nameSpan);
+                li.appendChild(quantityInput);
+                li.appendChild(removeButton);
+
+                cartItems.appendChild(li);
+            });
+
+            const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+            document.getElementById('total-amount').textContent = `Total: $${totalPrice}`;
+            toggleCart(true);
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            saveCart();
+            updateCart();
+        }
+
+        function updateQuantity(itemId, quantity) {
+            const cartItem = cart.find(item => item.id === itemId);
+            if (cartItem) {
+                cartItem.quantity = parseInt(quantity, 10);
+                saveCart();
+                updateCart();
+            }
+        }
+
+        function toggleCart(forceShow = false) {
+            const cartElement = document.getElementById('cart');
+            if (forceShow || cartElement.style.display === 'none' || cartElement.style.display === '') {
+                cartElement.style.display = 'block';
+            } else {
+                cartElement.style.display = 'none';
+            }
+        }
+
+        function checkout() {
+            if (cart.length > 0) {
+                alert('Proceeding to checkout with ' + cart.length + ' items.');
+            } else {
+                alert('Your cart is empty.');
+            }
+        }
+    </script>
+</body>
+</html>

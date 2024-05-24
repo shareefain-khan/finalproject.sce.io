@@ -9,6 +9,48 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+    /* Cart styles */
+.cart {
+    display: none;
+    position: fixed;
+    top: 20%;
+    right: 20px;
+    width: 300px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.cart h2 {
+    margin: 0 0 20px;
+}
+
+.cart ul {
+    list-style: none;
+    padding: 0;
+}
+
+.cart ul li {
+    margin-bottom: 10px;
+}
+
+.cart button {
+    background: #ff523b;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.cart button:hover {
+    background: #ff523b;
+    opacity: 0.8;
+}
+
+</style>
 </head>
 <body>
     
@@ -16,7 +58,7 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <img src="images/logo.png" alt="" width="125px">
+                <a href="index.html">  <img src="./images/E-Commerce-Logo-Design-PNG.png" alt="" width="125px"></a>
             </div>
             <nav>
                 
@@ -28,13 +70,22 @@
                     <li><a href="./account.html">Account</a></li>
                 </ul>
             </nav>
-            
+            <img src="images/cart.png" width="30px" height="30px" onclick="toggleCart()">
         
-            <div class="menu-icon" id="menu-icon">☰</div>
+            <div class="menu-icon" id="menu-icon">&#9776;</div>
             
         </div>
         
         </div>
+
+         <!-- Cart Section -->
+    <div id="cart" class="cart">
+        <h2>Cart</h2>
+        <ul id="cart-items"></ul>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+
+
 
 
    <div class="small-container">
@@ -224,6 +275,146 @@
 
 <script src="./script.js">
     
+ 
+        
+        var MenuItems = document.getElementById("MenuItems");
+MenuItems.style.maxHeight = "0px";
+
+document.getElementById("menu-icon").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent any default action, just in case
+    if (MenuItems.style.maxHeight === "0px") {
+        MenuItems.style.maxHeight = "200px";
+    } else {
+        MenuItems.style.maxHeight = "0px";
+    }
+});
+
+
+// new javascript product gallery
+
+var ProductImg = document.getElementById("ProductImg");
+var SmallImg = document.getElementsByClassName("SmallImg");
+
+SmallImg[0].onclick = function() {
+    ProductImg.src = SmallImg[0].src;
+}
+
+SmallImg[1].onclick = function() {
+    ProductImg.src = SmallImg[1].src;
+}
+
+SmallImg[2].onclick = function() {
+    ProductImg.src = SmallImg[2].src;
+}
+
+SmallImg[3].onclick = function() {
+    ProductImg.src = SmallImg[3].src;
+}
+
+        let cart = [];
+
+        const products = [
+            { id: 0, name: "Shoes by HRK", price: 70.00, img: "images/product-2.jpg" },
+            { id: 1, name: "Red Printed T-Shirt", price: 75.00, img: "images/product-1.jpg" },
+            { id: 2, name: "Shoes", price: 70.00, img: "images/product-2.jpg" },
+            { id: 3, name: "Trouser for Men", price: 25.00, img: "images/product-3.jpg" },
+            { id: 4, name: "Blue Printed T-Shirt", price: 75.00, img: "images/product-4.jpg" }
+        ];
+
+        window.onload = function() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+        };
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const quantityInput = document.getElementById(`product-quantity-${productId}`);
+            const quantity = parseInt(quantityInput ? quantityInput.value : 1, 10);
+
+            if (product) {
+                const cartItem = { ...product, id: Date.now(), quantity }; // Unique ID for each cart item
+                cart.push(cartItem);
+                saveCart();
+                updateCart();
+            }
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            cartItems.innerHTML = '';
+
+            cart.forEach(item => {
+                const li = document.createElement('li');
+
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+
+                const quantityInput = document.createElement('input');
+                quantityInput.type = 'number';
+                quantityInput.value = item.quantity;
+                quantityInput.min = 1;
+                quantityInput.style.marginLeft = '10px';
+                quantityInput.onchange = () => updateQuantity(item.id, quantityInput.value);
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'X';
+                removeButton.style.marginLeft = '10px';
+                removeButton.onclick = () => removeFromCart(item.id);
+
+                li.appendChild(nameSpan);
+                li.appendChild(quantityInput);
+                li.appendChild(removeButton);
+
+                cartItems.appendChild(li);
+            });
+
+            const totalPrice = cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+            document.getElementById('total-amount').textContent = `Total: $${totalPrice}`;
+            toggleCart(true);
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            saveCart();
+            updateCart();
+        }
+
+        function updateQuantity(itemId, quantity) {
+            const cartItem = cart.find(item => item.id === itemId);
+            if (cartItem) {
+                cartItem.quantity = parseInt(quantity, 10);
+                saveCart();
+                updateCart();
+            }
+        }
+
+        function toggleCart(forceShow = false) {
+            const cartElement = document.getElementById('cart');
+            if (forceShow || cartElement.style.display === 'none' || cartElement.style.display === '') {
+                cartElement.style.display = 'block';
+            } else {
+                cartElement.style.display = 'none';
+            }
+        }
+
+        function checkout() {
+            if (cart.length > 0) {
+                alert('Proceeding to checkout with ' + cart.length + ' items.');
+            } else {
+                alert('Your cart is empty.');
+            }
+        }
+   
+
+
+
 </script>
 
 </body>

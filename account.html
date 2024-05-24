@@ -136,6 +136,19 @@ function login() {
     LoginForm.style.transform = "translateX(300px)";
     Indicator.style.transform = "translateX(0px)";
 }
+
+
+var MenuItems = document.getElementById("MenuItems");
+MenuItems.style.maxHeight = "0px";
+
+document.getElementById("menu-icon").addEventListener("click", function(event) {
+    event.preventDefault(); // Prevent any default action, just in case
+    if (MenuItems.style.maxHeight === "0px") {
+        MenuItems.style.maxHeight = "200px";
+    } else {
+        MenuItems.style.maxHeight = "0px";
+    }
+});
 </script>
 
 </body>
